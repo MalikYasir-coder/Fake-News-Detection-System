@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📰 News Verifier</h1>
+            <p>Paste an article below to check its authenticity.</p>
+        </header>
+
+        <form action="/predict" method="POST">
+            <textarea name="news_text" placeholder="Paste the news headline or article content here..." required></textarea>
+            <button type="submit" class="btn">Analyze News</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result {{ 'fake' if prediction == 'FAKE' else 'real' }}">
+            <h2>Result: {{ prediction }}</h2>
+            <p>Our model is confident that this news is <strong>{{ prediction }}</strong>.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
